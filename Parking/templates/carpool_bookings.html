@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Carpool Bookings</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f172a, #3b82f6);
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    /* Booking Card */
+    .booking {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .booking:hover {
+      transform: translateY(-5px);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #2563eb;
+      font-size: 20px;
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .price {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #16a34a;
+    }
+
+    /* Empty State */
+    .empty {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      color: #555;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Back button */
+    .back {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>🚗 My Carpool Bookings</h1>
+
+    {% if carpool_bookings %}
+      {% for b in carpool_bookings %}
+        <div class="booking">
+          <h2>Ride {{ b.ride_id }} - {{ b.driver_name }}</h2>
+
+          <div class="details">
+            <p><span class="label">📍 From:</span> {{ b.start_location }}</p>
+            <p><span class="label">📍 To:</span> {{ b.destination }}</p>
+            <p><span class="label">🕒 Date/Time:</span> {{ b.date_time }}</p>
+            <p><span class="label">👥 Seats:</span> {{ b.seats_booked }}</p>
+          </div>
+
+          <div class="price">💰 ₹{{ b.price }}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="empty">
+        <p>🚫 No carpool bookings found.</p>
+      </div>
+    {% endif %}
+
+    <div class="back">
+      <a href="/">← Back to Home</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

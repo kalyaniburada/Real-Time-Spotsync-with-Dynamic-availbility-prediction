@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bookings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        .wallet-card {
+            background: #dcfce7;
+            color: #166534;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        .parking {
+            background: #e0f7fa;
+        }
+
+        .ev {
+            background: #fce4ec;
+        }
+
+        .amount {
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        .status-confirmed {
+            color: #15803d;
+            font-weight: bold;
+        }
+
+        .status-cancelled {
+            color: #b91c1c;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #b45309;
+            font-weight: bold;
+        }
+
+        .status-rejected {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .payment-verified {
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .payment-pending {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .payment-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        button {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .refund-badge {
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        .cancelled-note {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .pending-note {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .rejected-note {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>📋 My Bookings</h2>
+
+<div class="container">
+
+    <div class="wallet-card">
+        💰 Wallet Balance: ₹{{ wallet_balance }}
+    </div>
+
+{% if bookings|length == 0 %}
+    <div class="empty">
+        <p>🚫 No bookings found.</p>
+    </div>
+{% else %}
+    <div class="card">
+        <table>
+            <tr>
+                <th>📌 Type</th>
+                <th>📍 Station / Area</th>
+                <th>🔢 Slot</th>
+                <th>🕒 Start</th>
+                <th>⏳ End</th>
+                <th>💰 Payment</th>
+                <th>🧾 Transaction ID</th>
+                <th>💳 Payment Status</th>
+                <th>📄 Booking Status</th>
+                <th>⚙️ Action</th>
+            </tr>
+
+            {% for b in bookings %}
+            <tr class="{{ b.type|lower }}">
+                <td>{{ b.type }}</td>
+                <td>{{ b.station_name }}</td>
+                <td>{{ b.slot_number }}</td>
+                <td>{{ b.start_time }}</td>
+                <td>{{ b.end_time }}</td>
+
+                <td>
+                    <span class="amount">₹{{ b.amount }}</span>
+                </td>
+
+                <td>{{ b.transaction_id if b.transaction_id else "N/A" }}</td>
+
+                <td>
+                    {% if b.payment_status == "verified" %}
+                        <span class="payment-verified">Verified</span>
+                    {% elif b.payment_status == "pending_verification" %}
+                        <span class="payment-pending">Pending Verification</span>
+                    {% elif b.payment_status == "rejected" %}
+                        <span class="payment-rejected">Rejected</span>
+                    {% else %}
+                        <span>{{ b.payment_status if b.payment_status else "N/A" }}</span>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if b.status == "cancelled" %}
+                        <div class="status-cancelled">Cancelled</div>
+                        <div class="refund-badge">Refund Credited: ₹{{ b.refund_amount }}</div>
+                    {% elif b.status == "pending_verification" %}
+                        <div class="status-pending">Pending Verification</div>
+                    {% elif b.status == "rejected" %}
+                        <div class="status-rejected">Rejected</div>
+                    {% else %}
+                        <div class="status-confirmed">Confirmed</div>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if b.status == "cancelled" %}
+                        <span class="cancelled-note">Moved to Instant Booking</span>
+
+                    {% elif b.status == "pending_verification" %}
+                        <span class="pending-note">Waiting for Admin Approval</span>
+
+                    {% elif b.status == "rejected" %}
+                        <span class="rejected-note">Payment Rejected</span>
+
+                    {% else %}
+                        {% if b.type == "EV" %}
+                            <form action="/ev/cancel/{{ b.slot_id }}" method="post">
+                                <button type="submit">❌ Cancel</button>
+                            </form>
+                        {% else %}
+                            <form action="/cancel/{{ b.slot_id }}" method="post">
+                                <button type="submit">❌ Cancel</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endif %}
+
+<div class="back">
+    <a href="/">← Back to Home</a>
+</div>
+
+</div>
+
+</body>
+</html>

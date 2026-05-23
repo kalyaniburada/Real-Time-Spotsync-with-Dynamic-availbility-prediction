@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+  <title>My Bookings</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f172a, #2563eb);
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: white;
+      margin-bottom: 25px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    /* Booking Card */
+    .booking {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .booking:hover {
+      transform: translateY(-5px);
+    }
+
+    .title {
+      font-size: 18px;
+      color: #2563eb;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .details {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    /* Empty state */
+    .empty {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      color: #555;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Back link */
+    .back {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .back a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h2>📋 My Bookings ({{ user }})</h2>
+
+  <div class="container">
+
+    {% if bookings %}
+      {% for b in bookings %}
+        <div class="booking">
+          <div class="title">📍 {{ b.location }}</div>
+
+          <div class="details">
+            <div><span class="label">🔢 Slot:</span> {{ b.slot_id }}</div>
+            <div><span class="label">🕒 Entry:</span> {{ b.entry_time }}</div>
+            <div><span class="label">⏳ Exit:</span> {{ b.exit_time }}</div>
+            <div><span class="label">💳 Payment:</span> {{ b.payment }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="empty">
+        <p>🚫 No bookings found.</p>
+      </div>
+    {% endif %}
+
+    <div class="back">
+      <a href="/">← Back to Home</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

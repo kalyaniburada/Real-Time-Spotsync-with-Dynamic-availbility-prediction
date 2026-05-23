@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Slot</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e293b, #0ea5e9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      width: 430px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #1e3a8a;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      display: block;
+      margin-top: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #f8fafc;
+    }
+
+    input[readonly] {
+      background: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    .info {
+      background: #f1f5f9;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .pricing-box {
+      background: #eff6ff;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      color: #1e3a8a;
+      line-height: 1.7;
+      border: 1px solid #bfdbfe;
+    }
+
+    .upi-box {
+      text-align: center;
+      margin-top: 10px;
+      padding: 15px;
+      background: #f0fdf4;
+      border-radius: 10px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .upi-box img {
+      width: 220px;
+      margin-top: 10px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .upi-text {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #166534;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      margin-top: 12px;
+      background: #fff7ed;
+      color: #9a3412;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      text-align: left;
+      border: 1px solid #fdba74;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
+
+    .confirm-btn:hover {
+      background: #16a34a;
+    }
+
+    .back {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back a {
+      text-decoration: none;
+      color: #0ea5e9;
+      font-size: 14px;
+    }
+
+    .back a:hover {
+      text-decoration: underline;
+    }
+
+    .small-note {
+      font-size: 12px;
+      color: #64748b;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>🚗 Book Slot {{ slot.id }}</h2>
+
+    <div class="info">
+      Confirm your pre-booking details below.
+      <b>Payment method: UPI only</b>
+    </div>
+
+    <form method="POST" id="bookingForm">
+
+      <label>📍 Location:</label>
+      <input type="text" name="location" value="{{ location }}" readonly>
+
+      <label>⏱ Entry Time:</label>
+      <input type="text" name="entry_time" value="{{ entry_time }}" readonly>
+
+      <label>⏳ Exit Time:</label>
+      <input type="text" name="exit_time" value="{{ exit_time }}" readonly>
+
+      <label>💰 Amount:</label>
+      <input type="text" value="₹{{ amount if amount is defined else 'N/A' }}" readonly>
+      <input type="hidden" name="amount" value="{{ amount if amount is defined else '' }}">
+
+      {% if pricing %}
+      <div class="pricing-box">
+        💵 Rate per hour: <b>₹{{ pricing.rate_per_hour }}</b><br>
+        ⏱ Duration: <b>{{ pricing.duration_hours }} hours</b><br>
+
+        {% if pricing.is_peak_hour %}
+          🔥 Peak Hour Pricing Applied<br>
+        {% endif %}
+
+        {% if pricing.is_weekend %}
+          📅 Weekend Pricing Applied<br>
+        {% endif %}
+
+        {% if pricing.is_instant %}
+          ⚡ Instant Booking Extra Charge Applied<br>
+        {% endif %}
+
+        💰 Total Amount: <b>₹{{ pricing.total_amount }}</b>
+      </div>
+      {% endif %}
+
+      <label>💳 Payment Method:</label>
+      <input type="text" value="UPI Payment Only" readonly>
+
+      <div class="upi-box">
+        <h4>📱 Scan & Pay</h4>
+
+        <img src="{{ url_for('static', filename='upi_qr.jpeg') }}" alt="UPI QR">
+
+        <div class="upi-text">
+          UPI ID / Name: <b>BURADA KALYANI</b><br>
+          Pay exactly <b>₹{{ amount if amount is defined else 'your booking amount' }}</b>
+        </div>
+
+        <div class="warning-box">
+          After completing payment, enter the UPI Transaction ID / UTR number below.
+          Same transaction ID cannot be used twice.
+        </div>
+      </div>
+
+      <label>🧾 Transaction ID / UTR Number:</label>
+      <input
+        type="text"
+        name="transaction_id"
+        id="transaction_id"
+        placeholder="Enter UPI transaction ID / UTR number"
+        required
+      >
+      <div class="small-note">
+        Example: 416289374621
+      </div>
+
+      <button type="submit" class="confirm-btn">
+        ✅ Confirm Booking
+      </button>
+
+    </form>
+
+    <div class="back">
+      <a href="/slots">← Back to Slots</a>
+    </div>
+  </div>
+
+<script>
+document.getElementById("bookingForm").addEventListener("submit", function(e) {
+  const txn = document.getElementById("transaction_id").value.trim();
+
+  if (!txn) {
+    e.preventDefault();
+    alert("⚠️ Please enter UPI Transaction ID / UTR Number");
+    return;
+  }
+
+  if (txn.length < 8) {
+    e.preventDefault();
+    alert("⚠️ Please enter a valid UPI Transaction ID / UTR Number");
+    return;
+  }
+});
+</script>
+
+</body>
+</html>

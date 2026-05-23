@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6, #93c5fd);
+    color: white;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.logo span {
+    color: #facc15;
+}
+
+/* Nav links */
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #facc15;
+}
+
+/* Container */
+.container {
+    padding: 40px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+/* Cards Grid */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px) scale(1.03);
+}
+
+/* Icons */
+.icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+/* Status */
+.status {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.available {
+    color: #4ade80;
+}
+
+.busy {
+    color: #f87171;
+}
+
+/* Button */
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #facc15;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #fbbf24;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">⚡ Smart<span>Mobility</span></div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/slots">Slots</a>
+        <a href="/parking_bookings">My Parking</a>
+        <a href="/my_bookings">EV</a>
+        <a href="/carpool/bookings">Carpool</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>👋 Welcome, {{ user }}</h1>
+    <p>Manage all your services in one place</p>
+
+    <div class="cards">
+
+        <!-- Parking -->
+        <div class="card">
+            <div class="icon">🚗</div>
+            <h3>Parking</h3>
+            <div class="status available">✔ Slots Available</div>
+            <form action="/slots">
+                <button type="submit">View Slots</button>
+            </form>
+        </div>
+
+        <!-- My Parking Bookings -->
+        <!-- <div class="card">
+            <div class="icon">🧾</div>
+            <h3>My Parking Bookings</h3>
+            <div class="status available">✔ View your booked parking slots</div>
+            <form action="/parking_bookings">
+                <button type="submit">My Parking</button>
+            </form>
+        </div> -->
+
+        <!-- EV Charging -->
+        <div class="card">
+            <div class="icon">🔌</div>
+            <h3>EV Charging</h3>
+            <div class="status available">✔ Chargers Available</div>
+            <form action="/ev/stations">
+                <button type="submit">Find Stations</button>
+            </form>
+        </div>
+
+        <!-- Carpool -->
+        <div class="card">
+    <div class="icon">🚕</div>
+    <h3>Carpool</h3>
+    <div class="status available">✔ Rides Available</div>
+
+    <form action="/search" style="margin-bottom:10px;">
+        <button type="submit">🔍 Find Ride</button>
+    </form>
+
+    <form action="/offer">
+        <button type="submit">➕ Offer Ride</button>
+    </form>
+</div>
+
+    </div>
+</div>
+
+</body>
+</html>

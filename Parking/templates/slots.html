@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Check Slots</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #0f172a, #3b82f6);
+    padding: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: auto;
+  }
+
+  .map-card {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+  }
+
+  #map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  .form-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  input {
+    padding: 10px;
+    margin: 8px;
+    width: 250px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  input:focus {
+    border-color: #2563eb;
+    outline: none;
+  }
+
+  button {
+    padding: 10px 18px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #1d4ed8;
+    transform: scale(1.05);
+  }
+
+  #suggestions {
+    border: 1px solid #ccc;
+    max-height: 120px;
+    overflow-y: auto;
+    margin: auto;
+    width: 260px;
+    text-align: left;
+    border-radius: 8px;
+    background: white;
+  }
+
+  #suggestions div {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  #suggestions div:hover {
+    background: #e0e7ff;
+  }
+
+  #results {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  }
+
+  .area-title {
+    margin-top: 15px;
+    color: #2563eb;
+  }
+
+  .slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+  }
+
+  .slot-btn {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+    line-height: 1.5;
+    transition: 0.3s;
+  }
+
+  .free {
+    background: #22c55e;
+    color: white;
+  }
+
+  .instant {
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: white;
+    border: 2px solid #fff;
+    box-shadow: 0 0 10px rgba(255, 80, 80, 0.6);
+  }
+
+  .booked {
+    background: #ef4444;
+    color: white;
+  }
+
+  .freeafter {
+    background: #f59e0b;
+    color: white;
+  }
+
+  .slot-btn:hover {
+    transform: scale(1.03);
+  }
+
+  .slot-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 768px) {
+    input {
+      width: 100%;
+      margin: 8px 0;
+    }
+
+    .slots-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<h2>🗺️ Check Parking Slots</h2>
+
+<div class="container">
+
+  <div class="map-card">
+    <div id="map"></div>
+  </div>
+
+  <div class="form-card">
+    <form id="slotForm">
+      <input type="text" id="location" placeholder="📍 Search location" autocomplete="off" />
+      <div id="suggestions"></div><br>
+
+      <input type="datetime-local" id="entry_time" required />
+      <input type="datetime-local" id="exit_time" required /><br>
+
+      <button type="submit">🔍 Check Slots</button>
+    </form>
+  </div>
+
+  <div id="results"></div>
+  <canvas id="predictionChart" style="margin-top:20px; background:white; border-radius:15px; padding:15px;"></canvas>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let predictionChart = null;
+
+  const map = L.map("map").setView([16.506, 80.648], 12);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors",
+  }).addTo(map);
+
+  let currentMarker = null;
+
+  const locationInput = document.getElementById("location");
+  const suggestionsBox = document.getElementById("suggestions");
+  const entryInput = document.getElementById("entry_time");
+  const exitInput = document.getElementById("exit_time");
+  const resultsBox = document.getElementById("results");
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      const userLat = pos.coords.latitude;
+      const userLng = pos.coords.longitude;
+
+      map.setView([userLat, userLng], 14);
+
+      L.marker([userLat, userLng], {
+        icon: L.icon({
+          iconUrl: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+        })
+      })
+      .addTo(map)
+      .bindPopup("📍 You are here")
+      .openPopup();
+
+      setTimeout(() => map.invalidateSize(), 200);
+    });
+  }
+
+  const lots = [
+    { name: "Bhavani Island", lat: 16.4833, lng: 80.5667 },
+    { name: "Prakasam Barrage", lat: 16.5167, lng: 80.6167 },
+    { name: "Kanaka Durga Temple, Vijayawada, India", lat: 16.5142, lng: 80.6185 },
+    { name: "Gandhi Hill", lat: 16.5165, lng: 80.6185 },
+    { name: "Undavalli Caves", lat: 16.4839, lng: 80.6078 },
+    { name: "PVP Square Mall", lat: 16.5065, lng: 80.6482 },
+    { name: "Benz Circle, Vijayawada, India", lat: 16.5166, lng: 80.6220 },
+    { name: "Vijayawada Railway Station, Vijayawada, India", lat: 16.5148, lng: 80.6423 },
+    { name: "Gannavaram Airport", lat: 16.5304, lng: 80.7977 },
+    { name: "MG Road, Vijayawada, India", lat: 16.5120, lng: 80.6400 },
+    { name: "Bus Stand, Vijayawada, India", lat: 16.5090, lng: 80.6460 },
+    { name: "Governorpet, Vijayawada, India", lat: 16.5110, lng: 80.6480 },
+    { name: "Auto Nagar, Vijayawada, India", lat: 16.5230, lng: 80.6290 },
+    { name: "City Centre, Vijayawada, India", lat: 16.5155, lng: 80.6320 },
+    { name: "Patamata, Vijayawada, India", lat: 16.5205, lng: 80.6360 },
+    { name: "Tadepalli, Vijayawada, India", lat: 16.4800, lng: 80.6210 },
+    { name: "PVP Mall, Vijayawada, India", lat: 16.5008, lng: 80.6415 }
+  ];
+
+  function setMarker(lat, lng, label) {
+    if (currentMarker) {
+      map.removeLayer(currentMarker);
+    }
+
+    currentMarker = L.marker([lat, lng])
+      .addTo(map)
+      .bindPopup(label)
+      .openPopup();
+
+    map.setView([lat, lng], 15);
+
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 200);
+  }
+
+  function renderResults(data, entry, exit) {
+    let instantCount = 0;
+
+    data.areas.forEach(area => {
+      area.slots.forEach(s => {
+        if (s.is_instant) instantCount++;
+      });
+    });
+
+    let html = `
+      <h3>📊 Slot Results</h3>
+      <div style="margin-bottom:12px;padding:10px;background:#eff6ff;border-radius:10px;color:#1e3a8a;font-weight:600;">
+          ⏱ Selected Time: ${entry} to ${exit}
+      </div>
+      <div style="background:#fee2e2;color:#991b1b;padding:12px;border-radius:10px;margin-bottom:10px;font-weight:bold;">
+        ⚡ Instant Slots Available: ${instantCount}
+      </div>
+    `;
+
+    if (data.nearby_suggestions && data.nearby_suggestions.length > 0) {
+      html += `
+        <div style="background:#e0f2fe;padding:12px;border-radius:10px;margin-bottom:15px;">
+          <h4 style="margin:0 0 8px 0;color:#0369a1;">
+            📍 Nearby Available Parking
+          </h4>
+          ${data.nearby_suggestions.slice(0, 3).map(n => `
+            <div style="margin:5px 0;font-weight:500;">
+              ✅ ${n.location_name} ${n.distance_km !== undefined ? `(${n.distance_km} km)` : ""}
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    data.areas.forEach(area => {
+      html += `<h4 class="area-title">📍 ${area.location_name}</h4>`;
+      html += `<div class="slots-grid">`;
+
+      area.slots
+        .sort((a, b) => (b.is_instant === true) - (a.is_instant === true))
+        .forEach(s => {
+          let predictionText = "";
+
+          if (s.predicted_occupied === 1 && s.probability_occupied) {
+            predictionText = `
+              <div style="color:#fee2e2;font-size:13px;font-weight:bold;margin-top:6px;">
+                🔮 Likely Busy (${(s.probability_occupied * 100).toFixed(1)}%)
+              </div>
+            `;
+          } else if (s.predicted_occupied === 0 && s.probability_available) {
+            predictionText = `
+              <div style="color:#dcfce7;font-size:13px;font-weight:bold;margin-top:6px;">
+                🔮 Likely Free (${(s.probability_available * 100).toFixed(1)}%)
+              </div>
+            `;
+          } else {
+            predictionText = `
+              <div style="color:#f8fafc;font-size:13px;margin-top:6px;">
+                🔮 Prediction unavailable
+              </div>
+            `;
+          }
+
+          if (s.status === "Free") {
+            const instantBadge = s.is_instant
+              ? `<div style="margin-top:8px;font-size:13px;font-weight:bold;color:#7f1d1d;background:#fee2e2;padding:6px 10px;border-radius:6px;">
+                  ⚡ Instant Booking Available (Recently Cancelled)
+                </div>`
+              : "";
+
+            html += `
+              <button class="slot-btn ${s.is_instant ? 'instant' : 'free'}"
+                onclick="goToBooking(${s.id}, '${area.location_name}', '${entry}', '${exit}')">
+                <div><b>Slot ${s.slot_number}</b> - ✅ Free</div>
+                ${predictionText}
+                ${instantBadge}
+              </button>
+            `;
+          } else if (s.status === "FreeAfter") {
+            html += `
+              <button class="slot-btn freeafter" disabled style="cursor:not-allowed; opacity:0.85;">
+                <div><b>Slot ${s.slot_number}</b> - ⏳ Free after ${s.free_at}</div>
+                ${predictionText}
+              </button>
+            `;
+          } else {
+            html += `
+              <button class="slot-btn booked" disabled>
+                <div><b>Slot ${s.slot_number}</b> - ❌ Booked till ${s.free_at || "Not available"}</div>
+                ${predictionText}
+              </button>
+            `;
+          }
+        });
+
+      html += `</div>`;
+    });
+
+    resultsBox.innerHTML = html;
+
+    let labels = [];
+    let available = [];
+    let occupied = [];
+
+    data.areas.forEach(area => {
+      area.slots.forEach(s => {
+        labels.push("Slot " + s.slot_number);
+        available.push(s.probability_available ? parseFloat((s.probability_available * 100).toFixed(1)) : 0);
+        occupied.push(s.probability_occupied ? parseFloat((s.probability_occupied * 100).toFixed(1)) : 0);
+      });
+    });
+
+    const ctx = document.getElementById("predictionChart").getContext("2d");
+
+    if (predictionChart) {
+      predictionChart.destroy();
+    }
+
+    predictionChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Available %",
+            data: available
+          },
+          {
+            label: "Occupied %",
+            data: occupied
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: `Prediction for ${entry} to ${exit}`
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100
+          }
+        }
+      }
+    });
+  }
+
+  function fetchSlots(location, entry, exit) {
+    if (!location) {
+      alert("⚠️ Please select a location");
+      return;
+    }
+
+    if (!entry || !exit) {
+      alert("⚠️ Please select time");
+      return;
+    }
+
+    if (exit <= entry) {
+      alert("⚠️ Exit time must be after entry time");
+      return;
+    }
+
+    resultsBox.innerHTML = "<p>⏳ Loading slots...</p>";
+
+    fetch(`/get_available_slots?location=${encodeURIComponent(location)}&entry_time=${encodeURIComponent(entry)}&exit_time=${encodeURIComponent(exit)}`)
+      .then(async (res) => {
+        const text = await res.text();
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          console.error("Non-JSON response:", text);
+          throw new Error("Backend error: server returned HTML instead of JSON. Check app.py terminal.");
+        }
+
+        if (!res.ok) {
+          throw new Error(data.error || "Unable to fetch slots");
+        }
+
+        return data;
+      })
+      .then(data => {
+        renderResults(data, entry, exit);
+      })
+      .catch(err => {
+        resultsBox.innerHTML = `
+          <div style="background:#fee2e2;color:#991b1b;padding:12px;border-radius:10px;font-weight:600;margin-top:10px;">
+            ⚠️ ${err.message}
+          </div>
+        `;
+        console.error(err);
+      });
+  }
+
+  locationInput.addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    suggestionsBox.innerHTML = "";
+
+    if (!query) return;
+
+    lots
+      .filter(l => l.name.toLowerCase().includes(query))
+      .forEach(l => {
+        const div = document.createElement("div");
+        div.textContent = l.name;
+
+        div.onclick = () => {
+          locationInput.value = l.name;
+          suggestionsBox.innerHTML = "";
+
+          setMarker(l.lat, l.lng, "📍 " + l.name);
+        };
+
+        suggestionsBox.appendChild(div);
+      });
+  });
+
+map.on("click", function(e) {
+  const lat = e.latlng.lat;
+  const lng = e.latlng.lng;
+  const coordsValue = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+
+  if (currentMarker) {
+    map.removeLayer(currentMarker);
+  }
+
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`)
+    .then(res => res.json())
+    .then(data => {
+      const placeName =
+        data.address?.suburb ||
+        data.address?.neighbourhood ||
+        data.address?.road ||
+        data.address?.city ||
+        data.address?.town ||
+        coordsValue;
+
+      // UI lo name chupistam
+      locationInput.value = placeName;
+      suggestionsBox.innerHTML = "";
+
+      currentMarker = L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup("📍 " + placeName)
+        .openPopup();
+
+      const entry = entryInput.value;
+      const exit = exitInput.value;
+
+      if (!entry || !exit) {
+        alert("⚠️ Please select entry & exit time first");
+        return;
+      }
+
+      if (exit <= entry) {
+        alert("⚠️ Exit time must be after entry time");
+        return;
+      }
+
+      resultsBox.innerHTML = "<p>⏳ Loading slots...</p>";
+
+      // 🔥 MAIN FIX → backend ki coordinates matrame pampu
+      fetchSlots(coordsValue, entry, exit);
+    })
+    .catch(err => {
+      console.error("Reverse geocoding error:", err);
+
+      locationInput.value = coordsValue;
+      suggestionsBox.innerHTML = "";
+
+      currentMarker = L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup("📍 Selected Location")
+        .openPopup();
+
+      const entry = entryInput.value;
+      const exit = exitInput.value;
+
+      if (!entry || !exit) {
+        alert("⚠️ Please select entry & exit time first");
+        return;
+      }
+
+      if (exit <= entry) {
+        alert("⚠️ Exit time must be after entry time");
+        return;
+      }
+
+      fetchSlots(coordsValue, entry, exit);
+    });
+});
+
+  document.getElementById("slotForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let location = locationInput.value.trim();
+    let entry = entryInput.value;
+    let exit = exitInput.value;
+
+    if (!location) {
+      alert("⚠️ Please select a location");
+      return;
+    }
+
+    if (!entry || !exit) {
+      alert("⚠️ Please select time");
+      return;
+    }
+
+    if (exit <= entry) {
+      alert("⚠️ Exit time must be after entry time");
+      return;
+    }
+
+    fetchSlots(location, entry, exit);
+  });
+
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const minDateTime =
+    now.getFullYear() + "-" +
+    pad(now.getMonth() + 1) + "-" +
+    pad(now.getDate()) + "T" +
+    pad(now.getHours()) + ":" +
+    pad(now.getMinutes());
+
+  entryInput.min = minDateTime;
+  exitInput.min = minDateTime;
+
+  setTimeout(() => {
+    map.invalidateSize();
+  }, 300);
+});
+
+function goToBooking(slotId, location, entry, exit) {
+  window.location.href = `/book/${slotId}?location=${encodeURIComponent(location)}&entry_time=${encodeURIComponent(entry)}&exit_time=${encodeURIComponent(exit)}`;
+}
+</script>
+</body>
+</html>

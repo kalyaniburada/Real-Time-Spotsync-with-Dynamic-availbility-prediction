@@ -1,0 +1,49 @@
+{
+    "users": [
+        {
+            "username": "alice",
+            "password": "1234",
+            "wallet_balance": 0,
+            "wallet_history": []
+        },
+        {
+            "username": "bob",
+            "password": "abcd",
+            "wallet_balance": 0,
+            "wallet_history": []
+        },
+        {
+            "username": "kalyani",
+            "password": "1234",
+            "wallet_balance": 0,
+            "wallet_history": []
+        },
+        {
+            "username": "keerthi",
+            "password": "12345",
+            "wallet_balance": 40.0,
+            "wallet_history": [
+                {
+                    "type": "Parking Refund",
+                    "slot_id": 61,
+                    "location": "Kanaka Durga Temple, Vijayawada, India",
+                    "amount": 20.0,
+                    "credited_at": "2026-04-16T10:19"
+                },
+                {
+                    "type": "Parking Refund",
+                    "slot_id": 1,
+                    "location": "PVP Mall, Vijayawada, India",
+                    "amount": 20.0,
+                    "credited_at": "2026-04-16T10:49"
+                }
+            ]
+        },
+        {
+            "username": "pucha_sravani",
+            "password": "1017",
+            "wallet_balance": 0,
+            "wallet_history": []
+        }
+    ]
+}

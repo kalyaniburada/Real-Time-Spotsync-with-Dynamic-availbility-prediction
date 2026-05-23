@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book EV Slot</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            width: 420px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #111827;
+        }
+
+        label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 5px rgba(37,99,235,0.5);
+        }
+
+        .error-box {
+            display: none;
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #15803d;
+            transform: scale(1.03);
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back a {
+            text-decoration: none;
+            color: #2563eb;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>⚡ Book EV Slot</h2>
+
+    <div class="info">
+        Slot <b>{{ slot.slot_number }}</b> at <b>{{ station.name }}</b><br>
+        Next available: <b>{{ next_available }}</b>
+    </div>
+
+    <div id="errorBox" class="error-box"></div>
+
+    <form method="POST" id="evBookingForm">
+
+        <label>Start Time:</label>
+        <input type="datetime-local" id="start_time" name="start_time" value="{{ entry_time or '' }}" required>
+
+        <label>End Time:</label>
+        <input type="datetime-local" id="end_time" name="end_time" value="{{ exit_time or '' }}" required>
+
+        <label>Connector Type:</label>
+        <select name="connector_type" required>
+            <option value="Type2">🔌 Type2 (Slow)</option>
+            <option value="CCS">⚡ CCS (Fast)</option>
+        </select>
+
+        <button type="submit">🚀 Book Now</button>
+
+    </form>
+
+    <div class="back">
+        <a href="/ev/stations">← Back to Stations</a>
+    </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("evBookingForm");
+    const startInput = document.getElementById("start_time");
+    const endInput = document.getElementById("end_time");
+    const errorBox = document.getElementById("errorBox");
+
+    function pad(n) {
+        return String(n).padStart(2, "0");
+    }
+
+    function getCurrentDateTimeLocal() {
+        const now = new Date();
+        return now.getFullYear() + "-" +
+            pad(now.getMonth() + 1) + "-" +
+            pad(now.getDate()) + "T" +
+            pad(now.getHours()) + ":" +
+            pad(now.getMinutes());
+    }
+
+    function showError(message) {
+        errorBox.style.display = "block";
+        errorBox.textContent = message;
+    }
+
+    function clearError() {
+        errorBox.style.display = "none";
+        errorBox.textContent = "";
+    }
+
+    const minDateTime = getCurrentDateTimeLocal();
+    startInput.min = minDateTime;
+    endInput.min = minDateTime;
+
+    startInput.addEventListener("change", function () {
+        endInput.min = this.value || minDateTime;
+
+        if (endInput.value && endInput.value <= startInput.value) {
+            endInput.value = "";
+        }
+    });
+
+    form.addEventListener("submit", function (e) {
+        clearError();
+
+        const startValue = startInput.value;
+        const endValue = endInput.value;
+        const nowValue = getCurrentDateTimeLocal();
+
+        if (!startValue || !endValue) {
+            e.preventDefault();
+            showError("Please select both start time and end time.");
+            return;
+        }
+
+        if (startValue < nowValue || endValue < nowValue) {
+            e.preventDefault();
+            showError("Previous dates and times are not allowed.");
+            return;
+        }
+
+        if (endValue <= startValue) {
+            e.preventDefault();
+            showError("End time must be after start time.");
+            return;
+        }
+    });
+});
+</script>
+
+</body>
+</html>

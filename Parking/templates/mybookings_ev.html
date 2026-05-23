@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My EV Charging Bookings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f1f5f9;
+        }
+
+        /* Price highlight */
+        .amount {
+            font-weight: bold;
+            color: #16a34a;
+        }
+
+        /* Empty state */
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            color: #555;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Back */
+        .back {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h2>📋 My EV Charging Bookings</h2>
+
+<div class="container">
+
+    {% if bookings|length == 0 %}
+        <div class="empty">
+            <p>🚫 No bookings found.</p>
+        </div>
+    {% else %}
+        <div class="card">
+            <table>
+                <tr>
+                    <th>⚡ Station</th>
+                    <th>🔢 Slot</th>
+                    <th>🔌 Connector</th>
+                    <th>🕒 Start</th>
+                    <th>⏳ End</th>
+                    <th>💰 Amount</th>
+                </tr>
+
+                {% for b in bookings %}
+                <tr>
+                    <td>{{ b.station_name }}</td>
+                    <td>{{ b.slot_number }}</td>
+                    <td>{{ b.connector_type }}</td>
+                    <td>{{ b.start_time }}</td>
+                    <td>{{ b.end_time }}</td>
+                    <td class="amount">₹{{ b.amount }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    <div class="back">
+        <a href="/">← Back to Home</a>
+    </div>
+
+</div>
+
+</body>
+</html>

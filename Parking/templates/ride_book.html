@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Ride</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f172a, #3b82f6);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Card */
+    .card {
+      background: white;
+      padding: 30px;
+      width: 450px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      margin-top: 0;
+      text-align: center;
+      color: #2563eb;
+      margin-bottom: 20px;
+    }
+
+    /* Info section */
+    .info {
+      background: #f1f5f9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .info p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    /* Highlight */
+    .price {
+      font-weight: bold;
+      color: #16a34a;
+      font-size: 16px;
+    }
+
+    .seats {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #16a34a;
+      transform: scale(1.03);
+    }
+
+    button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    /* Back */
+    .back {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .back a {
+      text-decoration: none;
+      color: #2563eb;
+      font-size: 14px;
+    }
+
+    .back a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>🚗 Ride Details</h2>
+
+    <div class="info">
+      <p><span class="label">👤 Driver:</span> {{ ride.driver_name }} ({{ ride.phone }})</p>
+      <p><span class="label">🚘 Vehicle:</span> {{ ride.vehicle }} ({{ ride.vehicle_number }})</p>
+      <p><span class="label">🚗 Type:</span> {{ ride.vehicle_type }}</p>
+      <p><span class="label">📍 From:</span> {{ ride.start_location }}</p>
+      <p><span class="label">📍 To:</span> {{ ride.destination }}</p>
+      <p><span class="label">🕒 Date/Time:</span> {{ ride.date_time }}</p>
+      <p><span class="label seats">👥 Seats Available:</span> {{ ride.available_seats }}</p>
+      <p><span class="label price">💰 Price:</span> ₹{{ ride.price }}</p>
+      <p><span class="label">📝 Notes:</span> {{ ride.notes }}</p>
+    </div>
+
+    <form method="POST">
+      {% if ride.available_seats > 0 %}
+        <button type="submit">🚀 Book Seat</button>
+      {% else %}
+        <button type="submit" disabled>❌ No Seats Available</button>
+      {% endif %}
+    </form>
+
+    <div class="back">
+      <a href="/search">← Back to Rides</a>
+    </div>
+  </div>
+
+</body>
+</html>

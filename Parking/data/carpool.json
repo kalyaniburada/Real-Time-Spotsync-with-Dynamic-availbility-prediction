@@ -1,0 +1,56 @@
+{
+    "rides": [
+        {
+            "id": 1,
+            "driver_name": "Ravi Kumar",
+            "phone": "9876543210",
+            "vehicle_type": "4-wheeler",
+            "vehicle": "Hyundai i20",
+            "vehicle_number": "AP09AB1234",
+            "start_location": "Kanaka Durga Temple, Vijayawada, India",
+            "destination": "Benz Circle, Vijayawada, India",
+            "date_time": "2026-04-04T09:00",
+            "available_seats": 2,
+            "price": 120.0,
+            "notes": "Leaving after morning prayers",
+            "is_shared": true,
+            "driver_lat": 16.5142,
+            "driver_lng": 80.6185,
+            "driver_dest_lat": 16.5166,
+            "driver_dest_lng": 80.622,
+            "bookings": [
+                {
+                    "user": "kalyani",
+                    "seats_booked": 1,
+                    "time": "2026-04-03T21:55"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "driver_name": "Sita Devi",
+            "phone": "9123456780",
+            "vehicle_type": "2-wheeler",
+            "vehicle": "Honda Activa",
+            "vehicle_number": "AP09XY5678",
+            "start_location": "Governorpet, Vijayawada, India",
+            "destination": "MG Road, Vijayawada, India",
+            "date_time": "2026-04-04T10:30",
+            "available_seats": 0,
+            "price": 25.0,
+            "notes": "Quick ride to MG Road",
+            "is_shared": true,
+            "driver_lat": 16.511,
+            "driver_lng": 80.648,
+            "driver_dest_lat": 16.512,
+            "driver_dest_lng": 80.64,
+            "bookings": [
+                {
+                    "user": "demo_user",
+                    "seats_booked": 1,
+                    "time": "2026-04-03T21:55"
+                }
+            ]
+        }
+    ]
+}

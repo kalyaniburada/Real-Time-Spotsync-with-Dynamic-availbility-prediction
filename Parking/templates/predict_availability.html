@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Parking Predictor</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f172a, #2563eb);
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    /* Form Card */
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 5px rgba(37,99,235,0.5);
+    }
+
+    /* Button */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #22c55e;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #16a34a;
+      transform: scale(1.03);
+    }
+
+    /* Result Card */
+    #result {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .result-title {
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .result-item {
+      margin: 6px 0;
+      font-size: 14px;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #16a34a;
+    }
+
+    .danger {
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<h1>🚗 Smart Parking Availability Predictor</h1>
+
+<div class="container">
+
+  <div class="card">
+    <form id="predictForm">
+      <div class="grid">
+
+        <label>Slot ID
+          <input type="number" id="slot_id" required>
+        </label>
+
+        <label>Entry Hour (0-23)
+          <input type="number" id="entry_hour" required>
+        </label>
+
+        <label>Exit Hour (0-23)
+          <input type="number" id="exit_hour" required>
+        </label>
+
+        <label>Day of Week (0=Mon ... 6=Sun)
+          <input type="number" id="day_of_week" required>
+        </label>
+
+        <label>Is Weekend
+          <select id="is_weekend" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </label>
+
+        <label>Date
+          <input type="date" id="date" required>
+        </label>
+
+      </div>
+
+      <button type="submit">🔍 Predict Availability</button>
+    </form>
+  </div>
+
+  <div id="result"></div>
+
+</div>
+
+<script>
+document.getElementById("predictForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const slot_id = document.getElementById("slot_id").value;
+  const entry_hour = document.getElementById("entry_hour").value;
+  const exit_hour = document.getElementById("exit_hour").value;
+  const day_of_week = document.getElementById("day_of_week").value;
+  const is_weekend = document.getElementById("is_weekend").value;
+  const date = document.getElementById("date").value;
+
+  const url = `http://127.0.0.1:5000/predict_availability?slot_id=${slot_id}&entry_hour=${entry_hour}&exit_hour=${exit_hour}&day_of_week=${day_of_week}&is_weekend=${is_weekend}&date=${date}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.error) {
+      document.getElementById("result").innerHTML =
+        `<p class="danger">⚠️ Error: ${data.error}</p>`;
+    } else {
+      document.getElementById("result").innerHTML = `
+        <h3 class="result-title">📊 Prediction Result</h3>
+        <p class="result-item"><b>Slot ID:</b> ${data.slot_id}</p>
+        <p class="result-item"><b>Date:</b> ${data.date}</p>
+        <p class="result-item"><b>Status:</b> 
+          ${data.predicted_occupied === 1 
+            ? '<span class="danger">❌ Occupied</span>' 
+            : '<span class="highlight">✅ Available</span>'}
+        </p>
+        <p class="result-item"><b>Availability:</b> ${(data.probability_available * 100).toFixed(1)}%</p>
+        <p class="result-item"><b>Occupied Chance:</b> ${(data.probability_occupied * 100).toFixed(1)}%</p>
+        <p class="result-item"><b>Festival Day:</b> ${data.is_festival === 1 ? "🎉 Yes" : "No"}</p>
+      `;
+    }
+  } catch (err) {
+    document.getElementById("result").innerHTML =
+      `<p class="danger">⚠️ Error: ${err}</p>`;
+  }
+});
+</script>
+
+</body>
+</html>

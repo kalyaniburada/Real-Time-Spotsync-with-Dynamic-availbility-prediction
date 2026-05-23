@@ -1,0 +1,1332 @@
+{
+    "stations": [
+        {
+            "location_name": "Kanaka Durga Temple",
+            "name": "Kanaka Durga Temple",
+            "latitude": 16.5286,
+            "longitude": 80.613,
+            "slots": [
+                {
+                    "id": 101,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 102,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 103,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 104,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 105,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 106,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 107,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 108,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 109,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 110,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Prakasam Barrage",
+            "name": "Prakasam Barrage",
+            "latitude": 16.5167,
+            "longitude": 80.6167,
+            "slots": [
+                {
+                    "id": 201,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "Type2",
+                    "power": "22kW",
+                    "bookings": []
+                },
+                {
+                    "id": 202,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 203,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 204,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 205,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "Type2",
+                    "power": "22kW",
+                    "bookings": []
+                },
+                {
+                    "id": 206,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 207,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 208,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 209,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "Type2",
+                    "power": "22kW",
+                    "bookings": []
+                },
+                {
+                    "id": 210,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Bhavani Island",
+            "name": "Bhavani Island",
+            "latitude": 16.4833,
+            "longitude": 80.5667,
+            "slots": [
+                {
+                    "id": 301,
+                    "slot_number": 1,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": [
+                        {
+                            "user": "kalyani",
+                            "entry_time": "2026-04-09T22:14",
+                            "exit_time": "2026-04-09T23:14",
+                            "connector_type": "Type2",
+                            "amount": 30.0
+                        }
+                    ]
+                },
+                {
+                    "id": 302,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 303,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 304,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 305,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 306,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 307,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 308,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 309,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 310,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "PVP Mall",
+            "name": "PVP Mall",
+            "latitude": 16.5062,
+            "longitude": 80.648,
+            "slots": [
+                {
+                    "id": 401,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 402,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 403,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 404,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 405,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 406,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 407,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 408,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 409,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 410,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Benz Circle",
+            "name": "Benz Circle",
+            "latitude": 16.5065,
+            "longitude": 80.647,
+            "slots": [
+                {
+                    "id": 501,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "40kW",
+                    "bookings": []
+                },
+                {
+                    "id": 502,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 503,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 504,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 505,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "40kW",
+                    "bookings": []
+                },
+                {
+                    "id": 506,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 507,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 508,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 509,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "40kW",
+                    "bookings": []
+                },
+                {
+                    "id": 510,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Andhra Loyola College",
+            "name": "Andhra Loyola College",
+            "latitude": 16.5285,
+            "longitude": 80.6315,
+            "slots": [
+                {
+                    "id": 601,
+                    "slot_number": 1,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 602,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 603,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 604,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 605,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 606,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 607,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 608,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 609,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 610,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "VR Siddhartha College",
+            "name": "VR Siddhartha College",
+            "latitude": 16.515,
+            "longitude": 80.631,
+            "slots": [
+                {
+                    "id": 701,
+                    "slot_number": 1,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 702,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 703,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 704,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 705,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 706,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 707,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 708,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 709,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 710,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Vijayawada Bus Stand",
+            "name": "Vijayawada Bus Stand",
+            "latitude": 16.5128,
+            "longitude": 80.64,
+            "slots": [
+                {
+                    "id": 801,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 802,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 803,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 804,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 805,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 806,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 807,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 808,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 809,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 810,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Vijayawada Railway Station",
+            "name": "Vijayawada Railway Station",
+            "latitude": 16.5162,
+            "longitude": 80.6185,
+            "slots": [
+                {
+                    "id": 901,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 902,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 903,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 904,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 905,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 906,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 907,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 908,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 909,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 910,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Trendset Mall",
+            "name": "Trendset Mall",
+            "latitude": 16.506,
+            "longitude": 80.6485,
+            "slots": [
+                {
+                    "id": 1001,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1002,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1003,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1004,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1005,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1006,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1007,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1008,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1009,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1010,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "LEPL Centro Mall",
+            "name": "LEPL Centro Mall",
+            "latitude": 16.5095,
+            "longitude": 80.6495,
+            "slots": [
+                {
+                    "id": 1101,
+                    "slot_number": 1,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1102,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1103,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1104,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1105,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1106,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1107,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1108,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1109,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1110,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "MG Road",
+            "name": "MG Road",
+            "latitude": 16.51,
+            "longitude": 80.645,
+            "slots": [
+                {
+                    "id": 1201,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1202,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1203,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1204,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1205,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1206,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1207,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1208,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1209,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1210,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Governorpet",
+            "name": "Governorpet",
+            "latitude": 16.5155,
+            "longitude": 80.6405,
+            "slots": [
+                {
+                    "id": 1301,
+                    "slot_number": 1,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1302,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1303,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1304,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1305,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1306,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1307,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1308,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1309,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "30kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1310,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Auto Nagar",
+            "name": "Auto Nagar",
+            "latitude": 16.497,
+            "longitude": 80.69,
+            "slots": [
+                {
+                    "id": 1401,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1402,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1403,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1404,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1405,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1406,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1407,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "45kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1408,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1409,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1410,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        },
+        {
+            "location_name": "Gannavaram Airport",
+            "name": "Gannavaram Airport",
+            "latitude": 16.5304,
+            "longitude": 80.7968,
+            "slots": [
+                {
+                    "id": 1501,
+                    "slot_number": 1,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1502,
+                    "slot_number": 2,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1503,
+                    "slot_number": 3,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1504,
+                    "slot_number": 4,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1505,
+                    "slot_number": 5,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1506,
+                    "slot_number": 6,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1507,
+                    "slot_number": 7,
+                    "charger_type": "Fast",
+                    "connector_type": "CCS",
+                    "power": "60kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1508,
+                    "slot_number": 8,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "7kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1509,
+                    "slot_number": 9,
+                    "charger_type": "Fast",
+                    "connector_type": "CHAdeMO",
+                    "power": "50kW",
+                    "bookings": []
+                },
+                {
+                    "id": 1510,
+                    "slot_number": 10,
+                    "charger_type": "Slow",
+                    "connector_type": "Type2",
+                    "power": "11kW",
+                    "bookings": []
+                }
+            ]
+        }
+    ]
+}

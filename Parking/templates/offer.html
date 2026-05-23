@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Offer Ride</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f4f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        label {
+            flex: 1 0 100%;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, select, button {
+            flex: 1 0 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .message {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .ride-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #fafafa;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .ride-card p {
+            margin: 5px 0;
+        }
+        .ride-card button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Offer a Ride</h1>
+
+    {% if message %}
+    <p class="message" style="color:green">{{ message }}</p>
+    {% endif %}
+
+    <form method="post">
+        <label>Driver Name</label>
+        <input type="text" name="driver_name" required>
+
+        <label>Phone</label>
+        <input type="text" name="phone">
+        <label>Shared Ride?</label>
+        <select name="is_shared">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+
+        <label>Vehicle Type</label>
+        <select name="vehicle_type" required>
+            <option value="">--Select Vehicle Type--</option>
+            <option value="2-wheeler">2-Wheeler</option>
+            <option value="3-wheeler">3-Wheeler</option>
+            <option value="4-wheeler">4-Wheeler</option>
+        </select>
+
+        <label>Vehicle Name</label>
+        <input type="text" name="vehicle">
+
+        <label>Vehicle Number</label>
+        <input type="text" name="vehicle_number">
+
+        <label>Start Location</label>
+        <select name="start" required>
+<option value="PVP Mall, Vijayawada, India">PVP Mall</option>
+<option value="Bus Stand, Vijayawada, India">Bus Stand</option>
+<option value="Benz Circle, Vijayawada, India">Benz Circle</option>
+<option value="Kanaka Durga Temple, Vijayawada, India">Kanaka Durga Temple</option>
+<option value="Vijayawada Railway Station, Vijayawada, India">Vijayawada Railway Station</option>
+<option value="MG Road, Vijayawada, India">MG Road</option>
+<option value="Governorpet, Vijayawada, India">Governorpet</option>
+<option value="Mahatma Gandhi Statue, Vijayawada, India">Mahatma Gandhi Statue</option>
+<option value="Auto Nagar, Vijayawada, India">Auto Nagar</option>
+<option value="City Centre, Vijayawada, India">City Centre</option>
+<option value="Krishna River Front, Vijayawada, India">Krishna River Front</option>
+<option value="Ajitha Circle, Vijayawada, India">Ajitha Circle</option>
+<option value="Bacchavari Street, Vijayawada, India">Bacchavari Street</option>
+<option value="Bejawada Junction, Vijayawada, India">Bejawada Junction</option>
+<option value="Bhimavaram Road, Vijayawada, India">Bhimavaram Road</option>
+<option value="Chowdavaram, Vijayawada, India">Chowdavaram</option>
+<option value="Chittinagar, Vijayawada, India">Chittinagar</option>
+<option value="Eluru Road, Vijayawada, India">Eluru Road</option>
+<option value="Gunadala, Vijayawada, India">Gunadala</option>
+<option value="Indira Nagar, Vijayawada, India">Indira Nagar</option>
+<option value="Kankipadu, Vijayawada, India">Kankipadu</option>
+<option value="Kondapalli, Vijayawada, India">Kondapalli</option>
+<option value="Krishna Nagar, Vijayawada, India">Krishna Nagar</option>
+<option value="Labbipet Circle, Vijayawada, India">Labbipet Circle</option>
+<option value="Lalitha Nagar, Vijayawada, India">Lalitha Nagar</option>
+<option value="MG Bus Stand, Vijayawada, India">MG Bus Stand</option>
+<option value="Muktyala, Vijayawada, India">Muktyala</option>
+<option value="Nallapadu, Vijayawada, India">Nallapadu</option>
+<option value="Patamata, Vijayawada, India">Patamata</option>
+<option value="Rajagopalpet, Vijayawada, India">Rajagopalpet</option>
+<option value="Rajiv Nagar, Vijayawada, India">Rajiv Nagar</option>
+<option value="RR Pet, Vijayawada, India">RR Pet</option>
+<option value="Sanivarapupeta, Vijayawada, India">Sanivarapupeta</option>
+<option value="Santosh Nagar, Vijayawada, India">Santosh Nagar</option>
+<option value="Seethammadhara, Vijayawada, India">Seethammadhara</option>
+<option value="Srinivasa Nagar, Vijayawada, India">Srinivasa Nagar</option>
+<option value="Tadepalli, Vijayawada, India">Tadepalli</option>
+<option value="Vijaya Nagar, Vijayawada, India">Vijaya Nagar</option>
+<option value="Venkatadri Nagar, Vijayawada, India">Venkatadri Nagar</option>
+<option value="VMC Road, Vijayawada, India">VMC Road</option>
+<option value="Vishweshwaraiah Circle, Vijayawada, India">Vishweshwaraiah Circle</option>
+<option value="Moghalrajpuram, Vijayawada, India">Moghalrajpuram</option>
+<option value="Krishna Lanka, Vijayawada, India">Krishna Lanka</option>
+<option value="Satyanarayanapuram, Vijayawada, India">Satyanarayanapuram</option>
+<option value="Laxmipuram, Vijayawada, India">Laxmipuram</option>
+<option value="Brodipet, Vijayawada, India">Brodipet</option>
+<option value="Panjagutta, Vijayawada, India">Panjagutta</option>
+<option value="Autonagar West, Vijayawada, India">Autonagar West</option>
+<option value="Acharya Nagarjuna University, Vijayawada, India">Acharya Nagarjuna University</option>
+<option value="Kaleswara Rao Market, Vijayawada, India">Kaleswara Rao Market</option>
+<option value="Poranki, Vijayawada, India">Poranki</option>
+<option value="Kondapalli Fort, Vijayawada, India">Kondapalli Fort</option>
+<option value="BHEL Township, Vijayawada, India">BHEL Township</option>
+<option value="Jaggaiahpeta Road, Vijayawada, India">Jaggaiahpeta Road</option>
+<option value="Gandhi Nagar, Vijayawada, India">Gandhi Nagar</option>
+<option value="NTR Circle, Vijayawada, India">NTR Circle</option>
+<option value="Vijayawada Old Bus Stand, Vijayawada, India">Vijayawada Old Bus Stand</option>
+<option value="Vijayawada RTC Complex, Vijayawada, India">Vijayawada RTC Complex</option>
+<option value="Gudivada Bus Stand, Vijayawada, India">Gudivada Bus Stand</option>
+<option value="Vijayawada Junction Railway Station, Vijayawada, India">Vijayawada Junction Railway Station</option>
+<option value="Kondapalli Railway Station, Vijayawada, India">Kondapalli Railway Station</option>
+<option value="Ramavarappadu Flyover, Vijayawada, India">Ramavarappadu Flyover</option>
+<option value="Kanuru Bus Stop, Vijayawada, India">Kanuru Bus Stop</option>
+<option value="Tirumalagiri Bus Stop, Vijayawada, India">Tirumalagiri Bus Stop</option>
+<option value="KPHB Colony Stop, Vijayawada, India">KPHB Colony Stop</option>
+        </select>
+
+        <label>Destination</label>
+        <select name="destination" required>
+<option value="PVP Mall, Vijayawada, India">PVP Mall</option>
+<option value="Bus Stand, Vijayawada, India">Bus Stand</option>
+<option value="Benz Circle, Vijayawada, India">Benz Circle</option>
+<option value="Kanaka Durga Temple, Vijayawada, India">Kanaka Durga Temple</option>
+<option value="Vijayawada Railway Station, Vijayawada, India">Vijayawada Railway Station</option>
+<option value="MG Road, Vijayawada, India">MG Road</option>
+<option value="Governorpet, Vijayawada, India">Governorpet</option>
+<option value="Mahatma Gandhi Statue, Vijayawada, India">Mahatma Gandhi Statue</option>
+<option value="Auto Nagar, Vijayawada, India">Auto Nagar</option>
+<option value="City Centre, Vijayawada, India">City Centre</option>
+<option value="Krishna River Front, Vijayawada, India">Krishna River Front</option>
+<option value="Ajitha Circle, Vijayawada, India">Ajitha Circle</option>
+<option value="Bacchavari Street, Vijayawada, India">Bacchavari Street</option>
+<option value="Bejawada Junction, Vijayawada, India">Bejawada Junction</option>
+<option value="Bhimavaram Road, Vijayawada, India">Bhimavaram Road</option>
+<option value="Chowdavaram, Vijayawada, India">Chowdavaram</option>
+<option value="Chittinagar, Vijayawada, India">Chittinagar</option>
+<option value="Eluru Road, Vijayawada, India">Eluru Road</option>
+<option value="Gunadala, Vijayawada, India">Gunadala</option>
+<option value="Indira Nagar, Vijayawada, India">Indira Nagar</option>
+<option value="Kankipadu, Vijayawada, India">Kankipadu</option>
+<option value="Kondapalli, Vijayawada, India">Kondapalli</option>
+<option value="Krishna Nagar, Vijayawada, India">Krishna Nagar</option>
+<option value="Labbipet Circle, Vijayawada, India">Labbipet Circle</option>
+<option value="Lalitha Nagar, Vijayawada, India">Lalitha Nagar</option>
+<option value="MG Bus Stand, Vijayawada, India">MG Bus Stand</option>
+<option value="Muktyala, Vijayawada, India">Muktyala</option>
+<option value="Nallapadu, Vijayawada, India">Nallapadu</option>
+<option value="Patamata, Vijayawada, India">Patamata</option>
+<option value="Rajagopalpet, Vijayawada, India">Rajagopalpet</option>
+<option value="Rajiv Nagar, Vijayawada, India">Rajiv Nagar</option>
+<option value="RR Pet, Vijayawada, India">RR Pet</option>
+<option value="Sanivarapupeta, Vijayawada, India">Sanivarapupeta</option>
+<option value="Santosh Nagar, Vijayawada, India">Santosh Nagar</option>
+<option value="Seethammadhara, Vijayawada, India">Seethammadhara</option>
+<option value="Srinivasa Nagar, Vijayawada, India">Srinivasa Nagar</option>
+<option value="Tadepalli, Vijayawada, India">Tadepalli</option>
+<option value="Vijaya Nagar, Vijayawada, India">Vijaya Nagar</option>
+<option value="Venkatadri Nagar, Vijayawada, India">Venkatadri Nagar</option>
+<option value="VMC Road, Vijayawada, India">VMC Road</option>
+<option value="Vishweshwaraiah Circle, Vijayawada, India">Vishweshwaraiah Circle</option>
+<option value="Moghalrajpuram, Vijayawada, India">Moghalrajpuram</option>
+<option value="Krishna Lanka, Vijayawada, India">Krishna Lanka</option>
+<option value="Satyanarayanapuram, Vijayawada, India">Satyanarayanapuram</option>
+<option value="Laxmipuram, Vijayawada, India">Laxmipuram</option>
+<option value="Brodipet, Vijayawada, India">Brodipet</option>
+<option value="Panjagutta, Vijayawada, India">Panjagutta</option>
+<option value="Autonagar West, Vijayawada, India">Autonagar West</option>
+<option value="Acharya Nagarjuna University, Vijayawada, India">Acharya Nagarjuna University</option>
+<option value="Kaleswara Rao Market, Vijayawada, India">Kaleswara Rao Market</option>
+<option value="Poranki, Vijayawada, India">Poranki</option>
+<option value="Kondapalli Fort, Vijayawada, India">Kondapalli Fort</option>
+<option value="BHEL Township, Vijayawada, India">BHEL Township</option>
+<option value="Jaggaiahpeta Road, Vijayawada, India">Jaggaiahpeta Road</option>
+<option value="Gandhi Nagar, Vijayawada, India">Gandhi Nagar</option>
+<option value="NTR Circle, Vijayawada, India">NTR Circle</option>
+<option value="Vijayawada Old Bus Stand, Vijayawada, India">Vijayawada Old Bus Stand</option>
+<option value="Vijayawada RTC Complex, Vijayawada, India">Vijayawada RTC Complex</option>
+<option value="Gudivada Bus Stand, Vijayawada, India">Gudivada Bus Stand</option>
+<option value="Vijayawada Junction Railway Station, Vijayawada, India">Vijayawada Junction Railway Station</option>
+<option value="Kondapalli Railway Station, Vijayawada, India">Kondapalli Railway Station</option>
+<option value="Ramavarappadu Flyover, Vijayawada, India">Ramavarappadu Flyover</option>
+<option value="Kanuru Bus Stop, Vijayawada, India">Kanuru Bus Stop</option>
+<option value="Tirumalagiri Bus Stop, Vijayawada, India">Tirumalagiri Bus Stop</option>
+<option value="KPHB Colony Stop, Vijayawada, India">KPHB Colony Stop</option>
+        </select>
+
+        <label>Time</label>
+        <input type="time" name="time">
+
+        <label>Seats</label>
+        <input type="number" name="seats" min="1" max="6">
+
+        <label>Notes</label>
+        <input type="text" name="notes">
+
+        <button type="submit">Offer Ride</button>
+    </form>
+
+    <h2>Your Offered Rides</h2>
+    {% for ride in rides %}
+    <div class="ride-card">
+        <p><b>Driver:</b> {{ ride.driver_name }}</p>
+        <p><b>Vehicle:</b> {{ ride.vehicle_type }} - {{ ride.vehicle }}</p>
+        <p><b>Start:</b> {{ ride.start_location }}</p>
+        <p><b>Destination:</b> {{ ride.destination }}</p>
+        <p><b>Seats Available:</b> {{ ride.available_seats }}</p>
+        <p><b>Price per ride:</b> {{ ride.price }}</p>
+
+       {% if ride.available_seats > 0 %}
+            
+        {% else %}
+            <p class="full">❌ Full</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

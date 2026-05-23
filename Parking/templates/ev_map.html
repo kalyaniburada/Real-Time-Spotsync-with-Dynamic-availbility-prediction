@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Charging Stations</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a, #2563eb);
+            color: white;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-card, .map-card, .result-card {
+            background: white;
+            color: #111827;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-row {
+            display: grid;
+            grid-template-columns: 1fr 180px;
+            gap: 12px;
+        }
+
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            outline: none;
+            font-size: 15px;
+        }
+
+        button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            background: #16a34a;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+
+        #map {
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+        }
+
+        .station-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+        }
+
+        .station-item h4 {
+            margin: 0 0 10px 0;
+            color: #1d4ed8;
+        }
+
+        .slots {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .slot-btn {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            font-size: 13px;
+        }
+
+        .available {
+            background: #16a34a;
+            cursor: pointer;
+        }
+
+        .available:hover {
+            background: #15803d;
+        }
+
+        .booked {
+            background: #dc2626;
+            cursor: not-allowed;
+        }
+
+        .note {
+            font-size: 14px;
+            color: #475569;
+            margin-top: 8px;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .search-row,
+            .time-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <h2>⚡ Find EV Charging Stations</h2>
+
+    <div class="search-card">
+        <form id="evSearchForm">
+            <div class="search-row">
+                <input type="text" id="location" placeholder="Enter EV location or nearby place" required>
+                <button type="submit">Search Station</button>
+            </div>
+
+            <div class="time-row">
+                <input type="datetime-local" id="entry_time" required>
+                <input type="datetime-local" id="exit_time" required>
+            </div>
+
+            <div class="note">
+                Example: Benz Circle, Bhavani Island, MG Road, PVP Mall
+            </div>
+        </form>
+    </div>
+
+    <div class="map-card">
+        <div id="map"></div>
+    </div>
+
+    <div class="result-card">
+        <h3>Nearby EV Stations</h3>
+        <div id="stationResults">
+            <p>Search a location with entry and exit time to see EV slots.</p>
+        </div>
+    </div>
+
+    <div class="back">
+        <a href="/">← Back to Dashboard</a>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const map = L.map("map").setView([16.5062, 80.6480], 13);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+
+    const stations = {{ stations|tojson }};
+    let markers = [];
+
+    function clearMarkers() {
+        markers.forEach(m => map.removeLayer(m));
+        markers = [];
+    }
+
+    function highlightStation(name) {
+        const station = stations.find(s =>
+            s.location_name.toLowerCase() === name.toLowerCase() ||
+            s.location_name.toLowerCase().includes(name.toLowerCase()) ||
+            name.toLowerCase().includes(s.location_name.toLowerCase())
+        );
+
+        if (station) {
+            map.setView([station.latitude, station.longitude], 15);
+        }
+    }
+
+    function loadEVSlots(locationName) {
+        const entry_time = document.getElementById("entry_time").value;
+        const exit_time = document.getElementById("exit_time").value;
+
+        if (!locationName || !entry_time || !exit_time) {
+            alert("Please enter location, entry time and exit time");
+            return;
+        }
+
+        if (exit_time <= entry_time) {
+            alert("Exit time must be after entry time");
+            return;
+        }
+
+        fetch(`/ev/slots?location=${encodeURIComponent(locationName)}&entry_time=${encodeURIComponent(entry_time)}&exit_time=${encodeURIComponent(exit_time)}`)
+            .then(res => res.json())
+            .then(data => {
+                const resultDiv = document.getElementById("stationResults");
+
+                if (data.error) {
+                    resultDiv.innerHTML = `<p style="color:red;">${data.error}</p>`;
+                    return;
+                }
+
+                if (!data.slots || data.slots.length === 0) {
+                    resultDiv.innerHTML = `<p style="color:red;">No EV slots found for this station.</p>`;
+                    return;
+                }
+
+                highlightStation(locationName);
+
+                let html = `<div class="station-item">
+                                <h4>⚡ ${locationName}</h4>
+                                <div class="slots">`;
+
+                data.slots.forEach(slot => {
+                    if (slot.is_available) {
+                        html += `
+                            <button class="slot-btn available"
+                                onclick="window.location.href='/ev/book/${slot.id}?entry_time=${encodeURIComponent(entry_time)}&exit_time=${encodeURIComponent(exit_time)}'">
+                                Slot ${slot.slot_number} - ${slot.connector_type} - ${slot.power} - Available
+                            </button>
+                        `;
+                    } else {
+                        html += `
+                            <button class="slot-btn booked" disabled>
+                                Slot ${slot.slot_number} - ${slot.connector_type} - Booked till ${slot.next_available_time}
+                            </button>
+                        `;
+                    }
+                });
+
+                html += `   </div>
+                           </div>`;
+
+                resultDiv.innerHTML = html;
+            })
+            .catch(err => {
+                document.getElementById("stationResults").innerHTML =
+                    `<p style="color:red;">Error loading EV slots.</p>`;
+                console.log(err);
+            });
+    }
+
+    function showStations() {
+        clearMarkers();
+
+        stations.forEach(station => {
+            const marker = L.marker([station.latitude, station.longitude]).addTo(map);
+
+            marker.bindPopup(`<b>${station.location_name}</b>`);
+
+            marker.on("click", function () {
+                document.getElementById("location").value = station.location_name;
+                map.setView([station.latitude, station.longitude], 15);
+
+                const entry_time = document.getElementById("entry_time").value;
+                const exit_time = document.getElementById("exit_time").value;
+
+                if (entry_time && exit_time) {
+                    loadEVSlots(station.location_name);
+                } else {
+                    document.getElementById("stationResults").innerHTML =
+                        `<p>Please select entry time and exit time for <b>${station.location_name}</b>.</p>`;
+                }
+            });
+
+            markers.push(marker);
+        });
+    }
+
+    showStations();
+
+    document.getElementById("evSearchForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const location = document.getElementById("location").value.trim();
+        loadEVSlots(location);
+    });
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            const userLat = pos.coords.latitude;
+            const userLng = pos.coords.longitude;
+
+            L.marker([userLat, userLng], {
+                icon: L.icon({
+                    iconUrl: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 32]
+                })
+            }).addTo(map).bindPopup("📍 Your Current Location");
+        });
+    }
+});
+</script>
+
+</body>
+</html>

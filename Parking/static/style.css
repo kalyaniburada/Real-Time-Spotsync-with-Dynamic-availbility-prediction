@@ -1,0 +1,12 @@
+.parking-lot {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px;
+}
+.slot {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: center;
+}
+.slot.available { background-color: lightgreen; }
+.slot.booked { background-color: lightcoral; }
